@@ -148,7 +148,7 @@ if __name__ == "__main__":
 
         formatted_results = [
             {
-                "image": img,
+                "image": meta.get("image"),
                 "title": meta.get("title"),
                 "price": meta.get("price"),
                 "rating": meta.get("rating"),
@@ -163,3 +163,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(json.dumps({ "error": str(e) }, indent=2))
         sys.exit(1)
+
+    finally:
+        if os.path.exists(image_path):
+            os.remove(image_path)

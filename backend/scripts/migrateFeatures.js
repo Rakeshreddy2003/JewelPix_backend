@@ -15,12 +15,12 @@ const migrateFeatures = async () => {
     console.log("MongoDB Connected ✅");
 
     // Load JSON file
-    const filePath = path.join(path.resolve(), "..", "model_training", "product_features.json");
+    const filePath = path.join(path.resolve(), "..", "model_training", "merged_features.json");
     const rawData = fs.readFileSync(filePath);
     const jsonData = JSON.parse(rawData);
 
     const products = Object.entries(jsonData).map(([image, data]) => ({
-      image,
+      image:data.image,
       features: data.features,
       title: data.title,
       price: data.price,
