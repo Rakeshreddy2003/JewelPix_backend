@@ -5,4 +5,4 @@ pip install --upgrade pip
 pip install -r model_training/requirements.txt
 
 # Start Node server
-node backend/server.js
+node server.js
