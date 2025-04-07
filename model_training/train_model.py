@@ -32,10 +32,13 @@ for index, row in df.iterrows():
                 "price": row.get("Price", ""),
                 "rating": row.get("Rating", ""),
                 "description": row.get("Description", ""),
-                "stock": row.get("Stock", "")
+                "stock": row.get("Stock", ""),
+                "category": row.get("Category", ""),
+                "votes": row.get("Votes", ""),
+                "brand": row.get("Brand", "")
             }
 
-            print(f"{product_id}.jpg -> Title: {row.get('Title', '')}, Price: {row.get('Price', '')}, Rating: {row.get('Rating', '')}, Stock: {row.get('Stock', '')}, Description: {row.get('Description', '')}")
+            print(f"{product_id}.jpg -> Title: {row.get('Title', '')}, Price: {row.get('Price', '')}, Rating: {row.get('Rating', '')}, Stock: {row.get('Stock', '')}, Description: {row.get('Description', '')}, Category: {row.get('Category', '')}, Votes: {row.get('Votes', '')},Brand: {row.get('Brand', '')}")
 
         except Exception as e:
             print(f"Error processing {product_id}.jpg: {e}")

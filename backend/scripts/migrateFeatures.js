@@ -26,11 +26,15 @@ const migrateFeatures = async () => {
       price: data.price,
       rating: data.rating,
       stock: data.stock,
+      category: data.category,
+      votes: data.votes,
+      brand: data.brand,
       description: data.description,
+
     }));
 
     await Product.insertMany(products);
-    console.log("Data migrated successfully 🎉");
+    console.log("Data migrated successfully");
 
     process.exit(0);
   } catch (err) {

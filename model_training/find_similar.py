@@ -126,7 +126,10 @@ def find_similar(image_path, top_n=5):
         "price": 1,
         "rating": 1,
         "stock": 1,
-        "description": 1
+        "description": 1,
+        "category": 1,
+        "votes": 1,
+        "brand": 1,
     })
 
     for doc in cursor:
@@ -153,7 +156,11 @@ if __name__ == "__main__":
                 "price": meta.get("price"),
                 "rating": meta.get("rating"),
                 "stock": meta.get("stock"),
+                "category": meta.get("category", ""),
+                "votes": meta.get("votes", ""),
+                "brand": meta.get("brand", ""),
                 "description": meta.get("description", "").replace("\n", " ").strip()
+
             }
             for img, score, meta in results
         ]

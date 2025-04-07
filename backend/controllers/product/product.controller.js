@@ -33,3 +33,61 @@ export const getProductFeatures = (req, res) => {
     res.json(JSON.parse(data));
   });
 };
+
+
+
+
+// controller to fetch the products using search bar
+export const searchProducts = async (req, res) => {
+  try {
+    const { query } = req.query;
+
+    if (!query || query.trim() === "") {
+      return res.status(400).json({ message: "Search query is required" });
+    }
+
+    const results = await Product.find({
+      $or: [
+        { title: { $regex: query, $options: "i" } },
+        { description: { $regex: query, $options: "i" } },
+        { category: { $regex: query, $options: "i" } },
+        { brand: { $regex: query, $options: "i" } },
+      ],
+    });
+
+    res.status(200).json(results);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
+// for filters
+export const getFilters = async (req, res) => {
+  try {
+    const brands = await Product.distinct("brand");
+    const categories = await Product.distinct("category");
+
+    // Get min and max price dynamically
+    const prices = await Product.find().select("price -_id");
+    const allPrices = prices.map(p => p.price);
+    const minPrice = Math.min(...allPrices);
+    const maxPrice = Math.max(...allPrices);
+
+    // Generate ranges dynamically (e.g., every ₹500)
+    const step = 5000;
+    const priceRanges = [];
+    for (let start = Math.floor(minPrice / step) * step; start < maxPrice; start += step) {
+      const end = start + step;
+      priceRanges.push({
+        label: `₹${start} - ₹${end}`,
+        value: `${start}-${end}`
+      });
+    }
+
+    res.json({ brands, categories, priceRanges });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
