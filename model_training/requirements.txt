@@ -8,3 +8,4 @@ Pillow
 scikit-learn
 cloudinary
 python-dotenv
+pymongo
