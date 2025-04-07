@@ -1,4 +1,11 @@
 #!/bin/bash
-pip install -r ../model_training/requirements.txt
+
+# Install Python dependencies
+pip install -r model_training/requirements.txt
+
+# Install Node.js dependencies
+cd backend
 npm install
-node backend/server.js
+
+# Start the backend server
+node server.js
