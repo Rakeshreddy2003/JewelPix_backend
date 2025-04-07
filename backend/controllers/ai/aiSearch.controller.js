@@ -23,7 +23,7 @@ export const findSimilarProducts = (req, res) => {
       return res.status(500).json({ error: "Error processing image" });
     }
   
-    // console.log("🟢 Raw Python stdout:\n", stdout);
+    console.log("🟢 Raw Python stdout:\n", stdout);
   
     try {
       // Match JSON array from anywhere inside messy stdout
