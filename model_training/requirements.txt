@@ -6,3 +6,5 @@ opencv-python
 requests
 Pillow
 scikit-learn
+cloudinary
+python-dotenv
