@@ -9,37 +9,37 @@ from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from sklearn.metrics.pairwise import cosine_similarity
 from pymongo import MongoClient
 from dotenv import load_dotenv
+import traceback
 
-# Suppress TensorFlow logs
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # Load env from backend/.env
 env_path = os.path.join(os.path.dirname(__file__), '../backend/.env')
 load_dotenv(dotenv_path=env_path)
 
-# Load model
-model = MobileNetV2(weights="imagenet", include_top=False, pooling="avg")
+def load_model():
+    return MobileNetV2(weights="imagenet", include_top=False, pooling="avg")
 
-# MongoDB setup
-mongo_uri = os.getenv("MONGODB_CONNECTION_STRING")
-if not mongo_uri:
-    print(json.dumps({"error": "MongoDB URI not found in .env"}))
-    sys.exit(1)
-
-client = MongoClient(mongo_uri)
-db = client["JewelPix"]
-collection = db["products"]
-
-def extract_features(image_path):
+def extract_features(image_path, model):
+    if not os.path.exists(image_path):
+        raise FileNotFoundError(f"Image not found: {image_path}")
     img = load_img(image_path, target_size=(224, 224))
     img_array = img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
     img_array = preprocess_input(img_array)
     feature_vector = model.predict(img_array, verbose=0).flatten()
-    return feature_vector.tolist()  # Ensure it's serializable
+    return feature_vector.tolist()
 
-def find_similar(image_path, top_n=5):
-    uploaded_features = extract_features(image_path)
+def find_similar(image_path, model, top_n=5):
+    uploaded_features = extract_features(image_path, model)
+
+    mongo_uri = os.getenv("MONGODB_CONNECTION_STRING")
+    if not mongo_uri:
+        raise ValueError("MongoDB URI not found in .env")
+
+    client = MongoClient(mongo_uri)
+    db = client["JewelPix"]
+    collection = db["products"]
 
     similarities = []
     cursor = collection.find({}, {
@@ -65,14 +65,13 @@ def find_similar(image_path, top_n=5):
     return similarities[:top_n]
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print(json.dumps({"error": "No image path provided"}))
-        sys.exit(1)
-
-    image_path = sys.argv[1]
-
     try:
-        results = find_similar(image_path)
+        if len(sys.argv) < 2:
+            raise ValueError("No image path provided")
+
+        image_path = sys.argv[1]
+        model = load_model()
+        results = find_similar(image_path, model)
 
         formatted = [
             {
@@ -89,13 +88,16 @@ if __name__ == "__main__":
             for img, sim, meta in results
         ]
 
-        # ✅ ONLY print JSON
-        print(json.dumps(formatted_results))
+        print(json.dumps(formatted))
 
     except Exception as e:
-        print(json.dumps({"error": str(e)}))
+        error_output = {
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        }
+        print(json.dumps(error_output))
         sys.exit(1)
 
     finally:
-        if os.path.exists(image_path):
+        if 'image_path' in locals() and os.path.exists(image_path):
             os.remove(image_path)
