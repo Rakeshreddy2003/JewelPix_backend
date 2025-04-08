@@ -10,6 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import traceback
+sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -88,7 +89,9 @@ if __name__ == "__main__":
             for img, sim, meta in results
         ]
 
-        print(json.dumps(formatted))
+        sys.stdout.write(json.dumps(formatted) + "\n")
+        sys.stdout.flush()
+
 
     except Exception as e:
         error_output = {
