@@ -23,7 +23,7 @@ export const findSimilarProducts = (req, res) => {
       return res.status(500).json({ error: "Error processing image" });
     }
   
-    console.log("🟢 Raw Python stdout:\n", stdout);
+    // console.log("🟢 Raw Python stdout:\n", stdout);
   
     try {
       // Match JSON array from anywhere inside messy stdout
@@ -35,7 +35,7 @@ export const findSimilarProducts = (req, res) => {
       const jsonString = jsonMatch[0];
       const result = JSON.parse(jsonString);
   
-      console.log("data fetched successfully" );
+      // console.log("data fetched successfully" );
       res.json({ results: result });
     } catch (err) {
       console.error("❌ JSON parse error:", err.message);
