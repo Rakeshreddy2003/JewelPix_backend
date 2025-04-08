@@ -90,7 +90,7 @@ if __name__ == "__main__":
         ]
 
         # ✅ ONLY print JSON
-         print(json.dumps(formatted_results))
+        print(json.dumps(formatted_results))
 
     except Exception as e:
         print(json.dumps({"error": str(e)}))
