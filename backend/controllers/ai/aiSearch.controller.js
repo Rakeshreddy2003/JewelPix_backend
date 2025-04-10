@@ -29,7 +29,7 @@ export const findSimilarProducts = (req, res) => {
       const result = JSON.parse(jsonMatch[0]);
       res.json({ results: result });
     } catch (err) {
-      console.error("❌ JSON parse error:", err.message);
+      console.error("JSON parse error:", err.message);
       res.status(500).json({ error: "Invalid response from model" });
     }
   });
