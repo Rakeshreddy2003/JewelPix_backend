@@ -4,6 +4,9 @@
   "description": "this is express project where admin maages user access",
   "main": "server.js",
   "type": "module",
+  "scripts": {
+  "start": "node server.js"
+},
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
