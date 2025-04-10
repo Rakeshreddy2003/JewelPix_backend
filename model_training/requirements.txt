@@ -1,11 +1,9 @@
 tensorflow
 keras
 numpy
-pandas
-opencv-python
-requests
 Pillow
 scikit-learn
-cloudinary
 python-dotenv
 pymongo
+
+

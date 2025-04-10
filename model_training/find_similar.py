@@ -104,3 +104,9 @@ if __name__ == "__main__":
     finally:
         if 'image_path' in locals() and os.path.exists(image_path):
             os.remove(image_path)
+
+
+# cloudinary
+# opencv-python
+# # requests
+# pandas
