@@ -1,7 +1,12 @@
 # Dockerfile.python
-FROM python:3.11
+
+FROM python:3.10-slim
+
 WORKDIR /app
-COPY model_training/ ./
-RUN pip install -r requirements.txt
-EXPOSE 8000
+
+COPY model_training/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY model_training .
+
 CMD ["python", "find_similar.py"]

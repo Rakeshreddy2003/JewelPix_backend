@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   backend:
@@ -6,13 +6,16 @@ services:
       context: .
       dockerfile: Dockerfile.backend
     ports:
-      - "5000:5000"
+      - "8080:8080"
     env_file:
       - backend/.env
+    restart: always
 
-  python-app:
+  python-service:
     build:
       context: .
       dockerfile: Dockerfile.python
-    ports:
-      - "8000:8000"
+    working_dir: /app
+    volumes:
+      - ./model_training:/app
+    restart: unless-stopped
