@@ -8,14 +8,18 @@ services:
     ports:
       - "8080:8080"
     env_file:
-      -.env
+      - .env
+    volumes:
+      - .:/app
     restart: always
+    depends_on:
+      - python-service
 
   python-service:
     build:
       context: .
       dockerfile: Dockerfile.python
-    working_dir: /app
+    working_dir: /app/model_training
     volumes:
-      - ./model_training:/app
+      - ./model_training:/app/model_training
     restart: unless-stopped
