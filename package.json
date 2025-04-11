@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "./start.sh"
   },
   "engines": {
     "node": "18.x"
