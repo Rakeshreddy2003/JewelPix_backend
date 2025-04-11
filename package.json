@@ -4,14 +4,14 @@
   "description": "this is express project where admin manages user access",
   "main": "server.js",
   "type": "module",
-  "scripts": {
-    "start": "./start.sh"
-  },
+"scripts": {
+  "start": "node server.js"
+},
   "engines": {
     "node": "18.x"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
