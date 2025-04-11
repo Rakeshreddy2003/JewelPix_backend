@@ -68,7 +68,12 @@ def find_similar(image_path, model, top_n=5):
 if __name__ == "__main__":
     try:
         if len(sys.argv) < 2:
-            raise ValueError("No image path provided")
+            image_path = "uploads/sample.jpg"  # fallback default for testing
+            if not os.path.exists(image_path):
+                raise ValueError("No image path provided and default image not found")
+        else:
+            image_path = sys.argv[1]
+
 
         image_path = sys.argv[1]
         model = load_model()

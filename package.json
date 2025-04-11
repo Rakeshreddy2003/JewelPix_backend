@@ -4,7 +4,7 @@
   "description": "this is express project where admin manages user access",
   "main": "server.js",
   "type": "module",
-    "scripts": {
+  "scripts": {
     "start": "node server.js"
   },
   "engines": {
