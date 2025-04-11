@@ -3,8 +3,6 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
-# Move into the project directory if needed (optional)
-cd /home/site/wwwroot
 
 # Create and activate Python virtual environment
 python3 -m venv venv
