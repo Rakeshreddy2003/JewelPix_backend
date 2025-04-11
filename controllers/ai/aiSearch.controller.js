@@ -2,6 +2,7 @@ import { exec } from "child_process";
 import path from "path";
 import { fileURLToPath } from "url";
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -11,7 +12,7 @@ export const findSimilarProducts = (req, res) => {
   }
 
   const imagePath = path.resolve(req.file.path);
-  const scriptPath = path.resolve(__dirname, "../../../model_training/find_similar.py");
+  const scriptPath = path.resolve(__dirname, "../../model_training/find_similar.py");
   const command = `python "${scriptPath}" "${imagePath}"`;
 
   console.log("Running command:", command);

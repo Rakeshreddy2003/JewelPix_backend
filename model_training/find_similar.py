@@ -15,7 +15,7 @@ sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # Load env from backend/.env
-env_path = os.path.join(os.path.dirname(__file__), '../backend/.env')
+env_path = os.path.join(os.path.dirname(__file__), 'backend/.env')
 load_dotenv(dotenv_path=env_path)
 
 def load_model():
