@@ -1,12 +1,15 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "this is express project where admin maages user access",
+  "description": "this is express project where admin manages user access",
   "main": "server.js",
   "type": "module",
   "scripts": {
-  "start": "node server.js"
-},
+    "start": "bash start.sh"
+  },
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
@@ -15,7 +18,6 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.1",
     "multer": "^1.4.5-lts.2",
-    "node": "^18.20.8",
     "nodemailer": "^6.10.0",
     "uuid": "^11.1.0",
     "validator": "^13.15.0"
