@@ -2,14 +2,27 @@ import Product from "../../models/product.model.js";
 import fs from 'fs';
 import path from 'path';
 
+// GET /api/products
 export const getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const { category, brand, minPrice, maxPrice } = req.query;
+
+    const filter = {};
+
+    if (category) filter.category = category;
+    if (brand) filter.brand = brand;
+    if (minPrice && maxPrice) {
+      filter.price = { $gte: parseFloat(minPrice), $lte: parseFloat(maxPrice) };
+    }
+
+    // If price is stored as string, convert to number first
+    const products = await Product.find(filter).lean();
     res.json(products);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
+
 
 export const getProductById = async (req, res) => {
   try {
