@@ -13,7 +13,9 @@ export const findSimilarProducts = (req, res) => {
 
   const imagePath = path.resolve(req.file.path);
   const scriptPath = path.resolve(__dirname, "../../model_training/find_similar.py");
-  const command = `python "${scriptPath}" "${imagePath}"`;
+  const pythonCmd = process.env.NODE_ENV === "production" ? "python3" : "python";
+  const command = `${pythonCmd} "${scriptPath}" "${imagePath}"`;
+  
 
   console.log("Running command:", command);
 
