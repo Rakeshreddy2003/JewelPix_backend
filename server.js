@@ -2,13 +2,9 @@
 import express from 'express';
 import cors from 'cors';
 import connectDb from './config/db.js'; // Database connection
-import path from 'path';
-import { fileURLToPath } from 'url';
 
 
-// ES module workaround for __dirname
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
 
 
 // Routes
@@ -57,8 +53,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Serve static files (images) from model_training/data
-app.use('/images', express.static(path.join(__dirname, './model_training/data')));
 
 
 app.use(express.json());
