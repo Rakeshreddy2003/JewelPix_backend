@@ -58,11 +58,11 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_66E4368CF807471CB634C1205BA7A336 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_4741688CA05B496C840BEACA5565B9DB }}
 
-      - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
-        id: deploy-to-webapp
+      - name: Log in to Azure
+        uses: azure/login@v2
         with:
-          app-name: 'Jewelpix-backend'
-          slot-name: 'Production'
-          package: .
+          clientId: ${{ 4BCEF3DC80E54958AF0A2D66C95F9D9A }}
+          tenantId: ${{ 66E4368CF807471CB634C1205BA7A336 }}
+          subscriptionId: ${{ 4741688CA05B496C840BEACA5565B9DB }}  
+
           
