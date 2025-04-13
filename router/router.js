@@ -32,7 +32,7 @@ import { getPaymentStatus } from '../controllers/payment/payment.controller.js';
 //product
 import { getCart, addToCart,  } from '../controllers/product/cart.controller.js';
 import { getCategories } from '../controllers/product/category.controller.js';
-import { getAllProducts, getProductById, getProductFeatures, searchProducts, getFilters } from '../controllers/product/product.controller.js';
+import { getAllProducts, getProductById, searchProducts, getFilters } from '../controllers/product/product.controller.js';
 import { getWishlist, addToWishlist, removeFromWishlist } from "../controllers/product/wishList.controller.js";
 
 //user
@@ -55,6 +55,10 @@ router.post('/api/user/reset-password', protect, userResetPassword)      // upda
 
 //patent
 router.post('/api/protection/apply',protect, applyForPatent)    // applies for patent and copyrights.
+// Admin routes
+// router.put("/api/protection/approve/:id", protect, isAdmin, approveApplication);
+// router.put("/api/protection/reject/:id", protect, isAdmin, rejectApplication);
+
 
 //payment
 router.get('/api/payment/:orderId',protect, getPaymentStatus)   // payments.
@@ -65,13 +69,11 @@ router.get('/api/products',getAllProducts)                     // fetches all th
 router.get("/api/products/search", searchProducts)             // fetches all the searched products
 router.get("/api/products/filters",getFilters )                 // fetches the products based on filters
 router.get('/api/products/:id', getProductById)                // fetches specific produt by its ID.
-// router.get('/api/categories', getCategories)                   // fetches all the products based on category.
 router.get('/api/cart',protect, getCart)                       // fetches products from the cart.
 router.post('/api/cart',protect, addToCart )                   // adds products into the cart.
 router.get("/", protect, getWishlist);                         // fetches products from the wishlist.
 router.post("/", protect, addToWishlist);                      // add products into the wishlist.
 router.delete("/:productId", protect, removeFromWishlist);     // delete's the products from the wishlist. 
-router.get('/api/products/features', getProductFeatures);
 
 //user
 router.get('/api/user/profile',protect, getUserProfile)   // fetches user profile.
