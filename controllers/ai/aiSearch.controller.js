@@ -18,22 +18,26 @@ export const findSimilarProducts = (req, res) => {
   
 
   console.log("Running command:", command);
-
+  
   exec(command, { maxBuffer: 1024 * 500 }, (error, stdout, stderr) => {
+    console.log("stdout:", stdout);
+    console.error("stderr:", stderr);
+  
     if (error) {
       console.error("Python error:", error.message);
       return res.status(500).json({ error: "Error processing image" });
     }
-
+  
     try {
       const jsonMatch = stdout.match(/\[[\s\S]*?\]/);
       if (!jsonMatch) throw new Error("No valid JSON array found");
-
+  
       const result = JSON.parse(jsonMatch[0]);
       res.json({ results: result });
     } catch (err) {
       console.error("JSON parse error:", err.message);
-      res.status(500).json({ error: "Invalid response from model" });
+      return res.status(500).json({ error: "Invalid response from model" });
     }
   });
+  
 };
