@@ -55,6 +55,10 @@ router.post('/api/user/reset-password', protect, userResetPassword)      // upda
 
 //patent
 router.post('/api/protection/apply',protect, applyForPatent)    // applies for patent and copyrights.
+// Admin routes
+// router.put("/api/protection/approve/:id", protect, isAdmin, approveApplication);
+// router.put("/api/protection/reject/:id", protect, isAdmin, rejectApplication);
+
 
 //payment
 router.get('/api/payment/:orderId',protect, getPaymentStatus)   // payments.
@@ -70,7 +74,6 @@ router.post('/api/cart',protect, addToCart )                   // adds products 
 router.get("/", protect, getWishlist);                         // fetches products from the wishlist.
 router.post("/", protect, addToWishlist);                      // add products into the wishlist.
 router.delete("/:productId", protect, removeFromWishlist);     // delete's the products from the wishlist. 
-
 
 //user
 router.get('/api/user/profile',protect, getUserProfile)   // fetches user profile.
