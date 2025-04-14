@@ -32,7 +32,7 @@ import { getPaymentStatus } from '../controllers/payment/payment.controller.js';
 //product
 import { getCart, addToCart,  } from '../controllers/product/cart.controller.js';
 import { getCategories } from '../controllers/product/category.controller.js';
-import { getAllProducts, getProductById, searchProducts, getFilters } from '../controllers/product/product.controller.js';
+import { getAllProducts, getProductById,  searchProducts, getFilters } from '../controllers/product/product.controller.js';
 import { getWishlist, addToWishlist, removeFromWishlist } from "../controllers/product/wishList.controller.js";
 
 //user

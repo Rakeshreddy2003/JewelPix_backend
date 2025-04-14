@@ -30,7 +30,7 @@ const allowedOrigins = [
   "http://localhost:5173", // Local frontend
   "http://localhost:5174",
   "https://jewelpix.onrender.com"
-  // process.env.CLIENT_URL, 
+
 ];
 
 // Use CORS middleware with dynamic origin handling
