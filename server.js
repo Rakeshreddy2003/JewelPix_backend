@@ -4,9 +4,6 @@ import cors from 'cors';
 import connectDb from './config/db.js'; // Database connection
 
 
-
-
-
 // Routes
 import routes from './router/router.js';
 

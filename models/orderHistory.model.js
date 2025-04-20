@@ -6,7 +6,7 @@ const orderHistorySchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    refPath: 'user',  // Reference to the user
+    refPath: 'user', 
   },
   orders: {type:String,require:true},
  

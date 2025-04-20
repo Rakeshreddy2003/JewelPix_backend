@@ -47,26 +47,27 @@ export const searchProducts = async (req, res) => {
 };
 
 
+// Utility to format numbers like 100000 to 1L, 200000 to 2L, etc.
+const formatToLakh = (num) => {
+  return num >= 100000 ? `${num / 100000}L` : `₹${num.toLocaleString()}`;
+};
 
-// for filters
 export const getFilters = async (req, res) => {
   try {
     const brands = await Product.distinct("brand");
     const categories = await Product.distinct("category");
 
-    // Get min and max price dynamically
     const prices = await Product.find().select("price -_id");
     const allPrices = prices.map(p => p.price);
     const minPrice = Math.min(...allPrices);
     const maxPrice = Math.max(...allPrices);
 
-    // Generate ranges dynamically (e.g., every ₹500)
-    const step = 5000;
+    const step = 100000;
     const priceRanges = [];
     for (let start = Math.floor(minPrice / step) * step; start < maxPrice; start += step) {
       const end = start + step;
       priceRanges.push({
-        label: `₹${start} - ₹${end}`,
+        label: `${formatToLakh(start)} - ${formatToLakh(end)}`,
         value: `${start}-${end}`
       });
     }
@@ -76,6 +77,7 @@ export const getFilters = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 
 export const getProductById = async (req, res) => {
